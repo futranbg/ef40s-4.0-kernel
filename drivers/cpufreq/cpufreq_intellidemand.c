@@ -849,6 +849,7 @@ enum {
 #define NUM_INACTIVE_LOAD_ARRAY	(INACTIVE_DURATION_MSEC/SAMPLE_DURATION_MSEC)
 
 static bool lmf_browser_state = false;
+bool lmf_screen_state = true;
 
 static unsigned long lmf_active_load_limit = MAX_ACTIVE_FREQ_LIMIT;
 static unsigned long lmf_inactive_load_limit = MAX_INACTIVE_FREQ_LIMIT;
@@ -921,6 +922,13 @@ static void do_dbs_timer(struct work_struct *work)
 			{
 				pr_info("LMF: disabled\n");
 				lmf_old_state = false;
+
+				if (lmf_screen_state == true) {
+					/* wake up the 2nd core */
+					if (num_online_cpus() < 2)
+						cpu_up(1);
+				}
+
 			}
 
 			if (!active_state)
