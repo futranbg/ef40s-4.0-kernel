@@ -183,6 +183,10 @@
 static struct platform_device ion_dev;
 #endif
 
+#ifdef CONFIG_CPU_FREQ_GOV_ONDEMAND_2_PHASE
+int set_two_phase_freq(int cpufreq);
+#endif
+
 #define CONFIG_PANTECH_BT 1 // lsi@ps2.20110408 bluez by KSJ_device 2011_05_12
 enum {
 	GPIO_EXPANDER_IRQ_BASE  = PM8901_IRQ_BASE + NR_PMIC8901_IRQS,
@@ -12540,6 +12544,11 @@ static void __init msm8x60_init(struct msm_board_data *board_data)
 			
 	)
 		msm8x60_init_ebi2();
+
+#ifdef CONFIG_CPU_FREQ_GOV_ONDEMAND_2_PHASE
+	set_two_phase_freq(1134000);
+#endif
+
 	msm8x60_init_tlmm();
 	msm8x60_init_gpiomux(board_data->gpiomux_cfgs);
 	msm8x60_init_uart12dm();
