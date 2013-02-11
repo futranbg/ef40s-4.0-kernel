@@ -928,14 +928,14 @@ static void do_dbs_timer(struct work_struct *work)
 				/* set freq to 1.5GHz */
 				pr_info("LMF: CPU0 set max freq to max user\n");
 				cpufreq_set_limits(BOOT_CPU, SET_MAX, ACTIVE_MAX_FREQ);
-				
+
 				pr_info("LMF: CPU1 set max freq to max user\n");
 				if (cpu_online(NON_BOOT_CPU))
 					cpufreq_set_limits(NON_BOOT_CPU, SET_MAX, ACTIVE_MAX_FREQ);
 				else
 					cpufreq_set_limits_off(NON_BOOT_CPU, SET_MAX, ACTIVE_MAX_FREQ);
 			}
-			
+
 			jiffies_old = 0;
 			time_int = 0;
 			time_int1 = 0;
@@ -953,7 +953,7 @@ static void do_dbs_timer(struct work_struct *work)
 		unsigned int delay_msec = 0;
 		unsigned long load_total  = 0;
 		unsigned long jiffies_cur = jiffies;
-		
+
 		if (cpu == NON_BOOT_CPU)
 		{
 			delay_msec = (dbs_tuners_ins.sampling_rate * dbs_info->rate_mult) / 1000;
@@ -981,10 +981,10 @@ static void do_dbs_timer(struct work_struct *work)
 				jiffies_old = jiffies_cur;
 				policy = dbs_info->cur_policy;
 				load_state_cpu = ((policy->cur) * delay_msec)/10000;
-				
+
 				time_int += delay_msec;
 				load_state_total0 += load_state_cpu;			
-				
+
 				/* average */
 				if (time_int >= SAMPLE_DURATION_MSEC)
 				{
@@ -1017,7 +1017,7 @@ static void do_dbs_timer(struct work_struct *work)
 						{
 							load_limit_index = 0;
 						}
-						
+
 						if (msecs_limit_total > ACTIVE_DURATION_MSEC)
 						{
 							for (i=0; i<NUM_ACTIVE_LOAD_ARRAY; i++)
@@ -1038,7 +1038,7 @@ static void do_dbs_timer(struct work_struct *work)
 								/* set freq to 1.0GHz */
 								pr_info("LMF: CPU0 set max freq to 1.0GHz\n");
 								cpufreq_set_limits(BOOT_CPU, SET_MAX, INACTIVE_MAX_FREQ);
-								
+
 								pr_info("LMF: CPU1 set max freq to 1.0GHz\n");
 								if (cpu_online(NON_BOOT_CPU))
 									cpufreq_set_limits(NON_BOOT_CPU, SET_MAX, INACTIVE_MAX_FREQ);
@@ -1057,7 +1057,7 @@ static void do_dbs_timer(struct work_struct *work)
 						{
 							load_limit_index = 0;
 						}
-						
+
 						if (msecs_limit_total > INACTIVE_DURATION_MSEC)
 						{
 							for (i=0; i<NUM_INACTIVE_LOAD_ARRAY; i++)
@@ -1078,7 +1078,7 @@ static void do_dbs_timer(struct work_struct *work)
 								/* set freq to 1.5GHz */
 								pr_info("LMF: CPU0 set max freq to max user\n");
 								cpufreq_set_limits(BOOT_CPU, SET_MAX, ACTIVE_MAX_FREQ);
-								
+
 								pr_info("LMF: CPU1 set max freq to max user\n");
 								if (cpu_online(NON_BOOT_CPU))
 									cpufreq_set_limits(NON_BOOT_CPU, SET_MAX, ACTIVE_MAX_FREQ);
