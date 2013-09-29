@@ -557,7 +557,7 @@ static struct regulator_init_data saw_s0_init_data = {
 		.constraints = {
 			.name = "8901_s0",
 			.valid_ops_mask = REGULATOR_CHANGE_VOLTAGE,
-			.min_uV = 800000,
+			.min_uV = 750000,
 			.max_uV = 1325000,
 		},
 		.consumer_supplies = vreg_consumers_8901_S0,
@@ -568,7 +568,7 @@ static struct regulator_init_data saw_s1_init_data = {
 		.constraints = {
 			.name = "8901_s1",
 			.valid_ops_mask = REGULATOR_CHANGE_VOLTAGE,
-			.min_uV = 800000,
+			.min_uV = 750000,
 			.max_uV = 1325000,
 		},
 		.consumer_supplies = vreg_consumers_8901_S1,
@@ -7395,8 +7395,8 @@ static struct pm8xxx_vibrator_platform_data pm8058_vib_pdata = {
 };
 
 static struct pm8xxx_rtc_platform_data pm8058_rtc_pdata = {
-	.rtc_write_enable       = false,
-	.rtc_alarm_powerup	= false,
+	.rtc_write_enable       = true,
+	.rtc_alarm_powerup	= true,
 };
 
 static struct pm8xxx_pwrkey_platform_data pm8058_pwrkey_pdata = {
