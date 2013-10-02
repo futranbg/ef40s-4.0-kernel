@@ -135,6 +135,17 @@
 #define NFC_SLAVE_ADDR		    0x28	
 #endif
 
+#ifdef CONFIG_CPU_FREQ_GOV_ONDEMAND_2_PHASE
+int set_two_phase_freq(int cpufreq);
+#endif
+
+#ifdef CONFIG_CPU_FREQ_GOV_BADASS_2_PHASE
+int set_two_phase_freq_badass(int cpufreq);
+#endif
+#ifdef CONFIG_CPU_FREQ_GOV_BADASS_3_PHASE
+int set_three_phase_freq_badass(int cpufreq);
+#endif
+
 #ifdef CONFIG_PANTECH_FB_MSM_MHL_SII9244  // MHL_KKCHO
 #define PANTECH_MHL_SII9244_POWER_CTRL // 20110614, kkcho
 #define MHL_I2C_CONTROL // 20110405, kkcho, for EF39S MHL-control
@@ -3257,7 +3268,7 @@ unsigned char hdmi_is_primary;
 #define USER_SMI_SIZE         (MSM_SMI_SIZE - KERNEL_SMI_SIZE)
 #define MSM_PMEM_SMIPOOL_SIZE USER_SMI_SIZE
 
-#define MSM_ION_SF_SIZE		0x5A00000 /*90Mbytes = 0x5A00000*//*84Mbytes = 0x5400000*//*90Mbytes = 0x5A00000*//* 80 Mbytes = 0x5000000 */ /* 64MB = 0x4000000 */
+#define MSM_ION_SF_SIZE		0x4000000 /*90Mbytes = 0x5A00000*//*84Mbytes = 0x5400000*//*90Mbytes = 0x5A00000*//* 80 Mbytes = 0x5000000 */ /* 64MB = 0x4000000 */
 #define MSM_ION_CAMERA_SIZE     0x4000000 //F_PANTECH_CAMERA  MSM_PMEM_ADSP_SIZE
 #define MSM_ION_MM_FW_SIZE	0x200000 /* (2MB) */
 #define MSM_ION_MM_SIZE		0x5A00000 /*90Mbytes = 0x5A00000*//*84Mbytes = 0x5400000*//*90Mbytes = 0x5A00000*//*84Mbytes = 0x5400000*//* (54MB) =0x3600000*/
@@ -12547,6 +12558,17 @@ static void __init msm8x60_init(struct msm_board_data *board_data)
 	msm8x60_init_cam();
 #endif
 	msm8x60_init_mmc();
+
+#ifdef CONFIG_CPU_FREQ_GOV_ONDEMAND_2_PHASE
+	set_two_phase_freq(1134000);
+#endif
+
+#ifdef CONFIG_CPU_FREQ_GOV_BADASS_2_PHASE
+	set_two_phase_freq_badass(CONFIG_CPU_FREQ_GOV_BADASS_2_PHASE_FREQ);
+#endif
+#ifdef CONFIG_CPU_FREQ_GOV_BADASS_3_PHASE
+	set_three_phase_freq_badass(CONFIG_CPU_FREQ_GOV_BADASS_3_PHASE_FREQ);
+#endif
 
 #if defined(CONFIG_PMIC8058_OTHC) || defined(CONFIG_PMIC8058_OTHC_MODULE)
 	msm8x60_init_pm8058_othc();
