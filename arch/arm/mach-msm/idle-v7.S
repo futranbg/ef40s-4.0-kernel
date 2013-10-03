@@ -221,7 +221,7 @@ msm_pm_pa_to_va:
 	stmfd   sp!, {lr}
 	bl      msm_jtag_restore_state
 	ldmfd   sp!, {lr}
-#endif	
+#endif
 	mov     r0, #1
 	bx      lr
 	nop
